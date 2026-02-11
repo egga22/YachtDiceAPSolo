@@ -2495,7 +2495,7 @@
                     break;
                 case 44:
                     text = "Sevens (varies)";
-                    title = "Seven points for every die showing a value matching the number of dice you have (mod 6 + 1)";
+                    title = "Seven points for every die matching a target value (target = remainder of dice count / 6, plus 1; e.g. with 8 dice, target = 3)";
                     break;
                 case 45:
                     text = "Run of Three Pairs (60)";
@@ -6134,7 +6134,7 @@
             }
 
             
-            // Calculate and add items based on conditions
+            // Scale starting dice/rolls with goal: log10 gives ~1 at 10, ~3 at 1000, ~5 at 100000
             let extraDice = Math.floor(Math.log10(Math.max(10, finalgoal)));
             let extraRolls = Math.floor(Math.log10(Math.max(10, finalgoal)) / 2);
             itempool = itempool.concat(Array(4 + dice_debuff + extraDice).fill("Dice"));
