@@ -4619,10 +4619,15 @@
                     const name = categories[j].name + '_' + Math.min(8, nbDice) + '_' + Math.min(8, nbRolls);
                 
                     if (!(name in yacht_weights)) {
-                        throw new Error(`The name "${name}" is not in the yacht_weights list.`);
-                        console.log("Error thrown")
+                        // For new categories without pre-computed weights, estimate distribution
+                        let maxVal = categories[j].maxScore(nbDice);
+                        let estVal = Math.floor(maxVal * 0.3);
+                        dist = {};
+                        dist[0] = 40000;
+                        dist[estVal] = 60000;
+                    } else {
+                        dist = { ...yacht_weights[name] };
                     }
-                    dist = { ...yacht_weights[name] };
                 }
                 
 
