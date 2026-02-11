@@ -2946,7 +2946,7 @@
 
         function resetAll(){
             // Get the value inside the total td element
-            for (let i = 1; i <= 16; i++) {
+            for (let i = 1; i <= 24; i++) {
                             updateButtonValue("category" + i, 0, 0, 100, 1000);
                             document.getElementById("category" + i).disabled = false;
             }
@@ -3518,7 +3518,7 @@
         }
 
         // Add event listeners to each category button
-        for (let i = 1; i <= 16; i++) {
+        for (let i = 1; i <= 24; i++) {
             document.getElementById("category" + i).addEventListener("click", function (event) {
                 disableButton(event.target, i);
             });
@@ -6145,7 +6145,10 @@
             }
             
             let cats_for_logic = []
+            let generationLoopCount = 0;
+            const maxGenerationIterations = 50000;
             do{
+                generationLoopCount++;
                 let random_number = prng();
                 if(random_number < 0.5){
                     if(finalgoal >= 10000 && prng() < 0.1){
@@ -6205,7 +6208,7 @@
                 for (const [name, amount] of Object.entries(catCounts)) {
                     cats_for_logic.push(new Category(name, amount));
                 }
-            } while(diceSimulationStringsForJS2(cats_for_logic, dice, rolls, mult, 0, offline_difficulty) + points < finalgoal);
+            } while(diceSimulationStringsForJS2(cats_for_logic, dice, rolls, mult, 0, offline_difficulty) + points < finalgoal && generationLoopCount < maxGenerationIterations);
 
 
 
